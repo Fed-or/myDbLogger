@@ -1,6 +1,7 @@
 package servlet;
 
 import dao.UserDao;
+import model.Role;
 import model.User;
 
 import javax.servlet.RequestDispatcher;
@@ -10,28 +11,28 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 
-@WebServlet(value = "/delete")
-public class DeleteServlet extends HttpServlet {
-    private static final UserDao USERDAO = UserDao.getInstance();
-    long id = 1;
+@WebServlet(value = "/admin")
+public class AdminServlet extends HttpServlet {
+    public static final UserDao USERDAO = UserDao.getInstance();
 
-    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setCharacterEncoding(StandardCharsets.UTF_8.name());
+        req.setCharacterEncoding("UTF-8");
         resp.setContentType("text/html");
-        resp.setCharacterEncoding(StandardCharsets.UTF_8.name());
+        resp.setCharacterEncoding("UTF-8");
 
         String login = req.getParameter("login");
         String pass = req.getParameter("pass");
+        req.setAttribute("login", login);
 
-        User user = USERDAO.getUserByLoginAndPass(login, pass).get();
-        id = USERDAO.getIdByName(user.getFirstName(), user.getLastName());
-        if (id != 0) {
-            USERDAO.deleteUserById(id);
-            RequestDispatcher requestDispatcher = req.getRequestDispatcher("index.jsp");
+            req.setAttribute("users", USERDAO.getAllUsers());
+            RequestDispatcher requestDispatcher = req.getRequestDispatcher("adminPage.jsp");
             requestDispatcher.forward(req, resp);
         }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+        doPost(req, resp);
     }
 }

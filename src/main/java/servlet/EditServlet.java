@@ -15,7 +15,6 @@ import java.nio.charset.StandardCharsets;
 @WebServlet(value = "/edit")
 public class EditServlet extends HttpServlet {
     private static final UserDao USERDAO = UserDao.getInstance();
-    long id = 1;
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -29,12 +28,10 @@ public class EditServlet extends HttpServlet {
         req.setAttribute("login", login);
         req.setAttribute("pass", pass);
 
-        User user = USERDAO.getUserByLoginAndPass(login, pass);
+        User user = USERDAO.getUserByLoginAndPass(login, pass).get();
         if (USERDAO.CheckUserExist(user.getFirstName(), user.getLastName())) {
             USERDAO.updateUser(login, pass);
             resp.sendRedirect("afteredit.jsp");
-//            RequestDispatcher requestDispatcher = req.getRequestDispatcher("afteredit.jsp");
-//            requestDispatcher.forward(req, resp);
         } else {
             RequestDispatcher requestDispatcher = req.getRequestDispatcher("noninformation.jsp");
             requestDispatcher.forward(req, resp);
