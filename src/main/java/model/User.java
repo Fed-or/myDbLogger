@@ -3,23 +3,44 @@ package model;
 import java.util.Objects;
 
 public class User {
-    private long id;
+    private long idUsers;
     private String firstName;
     private String lastName;
     private String login;
-    private String password;
-    private String address;
+    private String pass;
+    private String adress;
     private String email;
+    private String roleId;
 
     public User(long id, String firstName, String secondName,
-                String login, String password, String address, String email) {
-        this.id = id;
+                String login, String password, String adress, String email, String roleId) {
+        this.idUsers = id;
         this.firstName = firstName;
         this.lastName = secondName;
         this.login = login;
-        this.password = password;
-        this.address = address;
+        this.pass = password;
+        this.adress = adress;
         this.email = email;
+        this.roleId = roleId;
+    }
+
+    public User(String firstName, String secondName,
+                String login, String password, String adress, String email, String roleId) {
+        this.firstName = firstName;
+        this.lastName = secondName;
+        this.login = login;
+        this.pass = password;
+        this.adress = adress;
+        this.email = email;
+        this.roleId = roleId;
+    }
+
+    public String getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(String roleId) {
+        this.roleId = roleId;
     }
 
     public String getFirstName() {
@@ -47,19 +68,19 @@ public class User {
     }
 
     public String getPassword() {
-        return password;
+        return pass;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPassword(String pass) {
+        this.pass = pass;
     }
 
-    public String getAddress() {
-        return address;
+    public String getAdress() {
+        return adress;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setAdress(String adress) {
+        this.adress = adress;
     }
 
     public String getEmail() {
@@ -75,30 +96,32 @@ public class User {
         if (this == o) return true;
         if (!(o instanceof User)) return false;
         User user = (User) o;
-        return id == user.id &&
+        return idUsers == user.idUsers &&
                 firstName.equals(user.firstName) &&
                 lastName.equals(user.lastName) &&
                 login.equals(user.login) &&
-                password.equals(user.password) &&
-                address.equals(user.address) &&
-                email.equals(user.email);
+                pass.equals(user.pass) &&
+                adress.equals(user.adress) &&
+                email.equals(user.email) &&
+                roleId.equals(user.roleId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, login, password, address, email);
+        return Objects.hash(firstName, lastName, login, pass, adress, email, roleId);
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
+                "id=" + idUsers +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", login='" + login + '\'' +
-                ", password='" + password + '\'' +
-                ", address='" + address + '\'' +
+                ", password='" + pass + '\'' +
+                ", adress='" + adress + '\'' +
                 ", email='" + email + '\'' +
+                ", roleId='" + roleId + '\'' +
                 '}';
     }
 }

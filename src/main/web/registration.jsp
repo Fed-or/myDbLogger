@@ -8,14 +8,17 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title></title>
+    <title>Регистрация</title>
 
 <body>
 <center>
-    <h1><b>Зарегистрироваться:</b></h1>
+    <h1><b>Форма регистрации</b></h1>
+    <br><br>
+    <c:out value="${errorField}"/>
+
     <br><br>
 
-    <form action="registration" method="post">
+    <form action="/registration" method="post">
 
         <td>Имя <input type="text" name="firstName"/></td>
         <br><br>
@@ -29,7 +32,7 @@
             <td>Пароль <input type="text" name="pass"/></td>
             <br><br>
         <tr>
-            <td>Адресс <input type="text" name="address"/></td>
+            <td>Адресс <input type="text" name="adress"/></td>
         </tr>
         <br><br>
         <tr>
